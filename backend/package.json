@@ -2,9 +2,13 @@
   "name": "Assignify",
   "version": "1.0.0",
   "description": "Assignment and Task upload and scheduling platform",
-  "main": "index.js",
+  "main": "src/index.js",
   "author": "Team npm -D coders",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "type": "module",
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cloudinary": "^2.5.1",
