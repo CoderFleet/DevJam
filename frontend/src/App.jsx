@@ -6,10 +6,12 @@ import Home from '../pages/Home'
 import ModalProvider from '../context/ModalContext'
 import Login from '../pages/Login'
 import Signup from '../pages/Signup'
+import { UserProvider } from '../context/UserContext'
 function App() {
 
   return (
     <ModalProvider>
+      <UserProvider>
     <Router>
       <Routes>
         <Route path="/" element={<Home/>}/>
@@ -17,6 +19,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
       </Routes>
     </Router>
+    </UserProvider>
     </ModalProvider>
   )
 }
