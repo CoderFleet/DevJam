@@ -10,7 +10,8 @@ import Signup from './Signup'
 import useActiveForm from '../hooks/useActiveForm'
 import Modal from '../components/Modal'
 import { useModal } from '../context/ModalContext'
-
+import ContactUs from './ContactUs'
+import Photos from './Photos'
 const Home = () => {
   const [isActive1, setIsActive1] = useState(false);
 
@@ -110,6 +111,73 @@ const Home = () => {
           </div>
         </Modal>
       )}
+       {/* Main Container */}
+       <div className="relative z-20 mt-60 flex flex-col justify-center p-2 md:p-11 items-center gap-y-10">
+        <motion.h1
+          className="text-6xl relative z-20 sm:text-7xl lg:text-8xl pt-50 font-extrabold tracking-wide text-center text-white font-serif mb-6"
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 1.2,
+            ease: "easeOut",
+            bounce: 0.4,
+            type: "spring",
+          }}
+          whileHover={{
+            scale: 1.1,
+            color: "#c3bef0",
+            boxShadow: "0 0 1rem #ffffff, inset 0 0 1rem rgb(255, 255, 255), 0 0 2rem #ffffff, inset 0 0 2rem rgb(255, 255, 255)",
+          }}
+        >
+          ASSIGNIFY
+        </motion.h1>
+        <p className="sm:text-lg lg:text-xl text-white italic max-w-xl text-center">
+          "The future belongs to those who learn more skills and combine them in creative ways." – Robert Greene
+        </p>
+        <Layout1 />
+      </div>
+     <br/>
+     <br/>
+     <br/>
+     <br/>
+     <br/><br/>
+      {/* Contact Us Section */}
+      <div id="contact-us" className="min-h-screen mt-60">
+        <div className="relative z-20 flex flex-col justify-center p-2 md:p-11 items-center gap-y-10">
+          <motion.h1
+            className="text-6xl relative z-20 sm:text-7xl lg:text-8xl pt-50 font-extrabold tracking-wide text-center text-white font-serif mb-6"
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              duration: 1.2,
+              ease: "easeOut",
+              bounce: 0.4,
+              type: "spring",
+            }}
+            whileHover={{
+              scale: 1.1,
+              color: "#c3bef0",
+              boxShadow: "0 0 1rem #ffffff, inset 0 0 1rem rgb(255, 255, 255), 0 0 2rem #ffffff, inset 0 0 2rem rgb(255, 255, 255)",
+            }}
+          >
+            CONTACT US
+          </motion.h1>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <div className="flex flex-col lg:flex-row w-full min-h-screen space-y-4 lg:space-y-0 lg:space-x-4">
+          {/* Left Side: Contact Us */}
+          <div className="flex items-start justify-center w-full lg:w-1/2 p-4">
+            <ContactUs />
+          </div>
+
+          {/* Right Side: Photo Content */}
+          <div className="flex items-start justify-center w-full lg:w-1/2 p-4">
+            <Photos />
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

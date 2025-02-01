@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import UserContext from '../../context/UserContext';
+import UserContext from '../context/UserContext';
+import axios from 'axios'
 
 const Login = () => {
   // State variables for email and password
