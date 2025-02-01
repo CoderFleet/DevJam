@@ -10,18 +10,30 @@ cloud.config({
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
+// we can't store everything locally
+const deleteLocalFile = (path) => {
+  try {
+    fs.unlinkSync(path);
+    console.log(`Successfully deleted ${path}`);
+  } catch (err) {
+    console.error(`Error deleting file ${path}`, err);
+  }
+};
+
 // Helper function to upload file to cloudinary from local path
 const uploadToCloud = async (localPath) => {
   try {
     if (!localPath) return null;
     const res = await cloud.uploader.upload(localPath, {
-    // FIXME: file type error on cloudinary
+      // FIXME: file type error on cloudinary
       resource_type: "raw",
     });
     console.log("File Uploaded Successfully", res.url);
+    deleteLocalFile(localPath);
     return res;
   } catch (err) {
-    fs.unlinkSync(localPath);
+    console.log(err);
+    deleteLocalFile(localPath);
     return null;
   }
 };
