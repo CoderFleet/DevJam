@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 const userSchema = new Schema(
@@ -25,7 +26,7 @@ const userSchema = new Schema(
       trim: true,
     },
     avatar: {
-      type: String,
+      type: String, // Cloudinary URL
       required: true,
     },
     password: {
@@ -62,8 +63,6 @@ userSchema.pre("save", async function (next) {
 userSchema.methods.isPasswordCorrect = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
-
-// TODO: Add methods to generate Access and Refresh tokens
 
 // Access Token
 userSchema.methods.generateAccessToken = function () {
