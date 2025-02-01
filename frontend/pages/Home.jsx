@@ -81,6 +81,35 @@ const Home = () => {
           </nav>
         </header>
       </div>
+      <br/>
+       <br/>
+       <br/>
+      {/* Modal Component */}
+      {isModalOpen && (
+        <Modal>
+          <div className="relative w-full max-w-3xl h-[500px] bg-white shadow-lg overflow-hidden flex">
+            {/* Sign Up Form */}
+            <div className={`absolute top-0 left-0 w-1/2 h-full flex flex-col items-center justify-center gap-5 transition-opacity duration-500 ${isSignUp ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+            {isSignUp && <Signup />}
+            </div>
+            {/* Sign In Form */}
+            <div className={`absolute top-0 left-0 w-1/2 h-full flex flex-col items-center justify-center gap-5 transition-opacity duration-500 ${isSignUp ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+            {!isSignUp && <Login />}
+            </div>
+
+            {/* Toggle Panel */}
+            <div className="absolute top-0 left-1/2 w-1/2 h-full flex items-center justify-center text-white bg-[#c3bef0] p-5">
+              <div className="text-center flex flex-col items-center gap-4">
+                <h1 className="text-3xl font-bold text-black">{isSignUp ? "Hello, User!" : "Welcome User!"}</h1>
+                <p className="text-black text-xl">{isSignUp ? "If you already have an account" : "If you don't have an account"}</p>
+                <button onClick={toggleForm} className="h-10 w-24 bg-gradient-to-r from-[#430f58] to-[#6643b5] text-white py-2 px-6 mt-5 rounded-full">
+                  {isSignUp ? "Sign In" : "Sign Up"}
+                </button>
+              </div>
+            </div>
+          </div>
+        </Modal>
+      )}
     </div>
   )
 }
