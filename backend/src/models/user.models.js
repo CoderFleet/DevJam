@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import bcrypt from "bcrypt";
 
 const userSchema = new Schema(
   {
@@ -45,5 +46,19 @@ const userSchema = new Schema(
     timestamps: true,
   }
 );
+
+// Hashing the password before saving them into database for security
+userSchema.pre("save", async function (next) {
+  if (this.isModified("password")) {
+    this.password = await bcrypt.hash(this.password, 10);
+  }
+  return next();
+});
+
+// While we are at it maybe i can also add a custom method to check if the password matches hashed password from our backend
+// This just returns a boolean after comparing the two
+userSchema.methods.isPasswordCorrect = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
 
 export const User = mongoose.model("User", userSchema);
