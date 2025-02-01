@@ -4,11 +4,10 @@ import { v2 as cloud } from "cloudinary";
 // Filesystem for filehandling (deletion capabilities)
 import fs from "fs";
 
-// TODO: will add them to .env later 🥱
 cloud.config({
   cloud_name: "the-secretary",
-  api_key: "223686945462514",
-  api_secret: "G8rh3hX5EMDPBLFVGeXLQbpH_O8",
+  api_key: process.env.CLOUDINARY_KEY,
+  api_secret: process.env.CLOUDINARY_SECRET,
 });
 
 // Helper function to upload file to cloudinary from local path
@@ -16,7 +15,7 @@ const uploadToCloud = async (localPath) => {
   try {
     if (!localPath) return null;
     const res = await cloud.uploader.upload(localPath, {
-    // TODO: file type error on cloudinary
+    // FIXME: file type error on cloudinary
       resource_type: "raw",
     });
     console.log("File Uploaded Successfully", res.url);
