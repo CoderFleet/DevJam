@@ -71,28 +71,28 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={submitHandler} className="flex flex-col items-center gap-4 bg-white p-8 rounded-lg shadow-md">
+    <form onSubmit={submitHandler} className='flex flex-col items-center justify-center gap-6'>
       <h1 className="text-3xl font-semibold mb-5 text-black">Sign In</h1>
       <span className="text-xl mb-3">or use your email & password</span>
       <input
         type="email"
         placeholder="Email"
-        className="bg-gray-200 w-72 h-10 p-3 rounded-lg mb-2"
+        className="bg-[#c3bef0] w-72 h-10 p-3 rounded-lg mb-2"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
       <input
         type="password"
         placeholder="Password"
-        className="bg-gray-200 w-72 h-10 p-3 rounded-lg mb-2"
+        className="bg-[#c3bef0] w-72 h-10 p-3 rounded-lg mb-2"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
       <button
         type="submit"
-        className="mt-4 h-10 w-24 bg-gradient-to-r from-purple-700 to-purple-500 text-white rounded-lg uppercase font-semibold"
+        className="mt-4 h-10 w-24 bg-gradient-to-r from-[#430f58] to-[#6643b5] text-white rounded-lg cursor-pointer uppercase font-semibold"
       >
-        Sign In
+        Sign In 
       </button>
     </form>
   );

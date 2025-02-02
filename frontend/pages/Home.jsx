@@ -12,6 +12,7 @@ import Modal from '../components/Modal'
 import { useModal } from '../context/ModalContext'
 import ContactUs from './ContactUs'
 import Photos from './Photos'
+import Layout1 from './Layout1'
 const Home = () => {
   const [isActive1, setIsActive1] = useState(false);
 
@@ -32,7 +33,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div >
         {/* Starry Background */}
         <div className='star'>
         <span></span>
@@ -47,19 +48,19 @@ const Home = () => {
       </div>
 
        {/* Navbar */}
-       <div className="App">
+       <div id="top" className="App">
         <header className="App-header">
-          <nav className="bg-[#c3bef0] shadow-md relative flex px-6 py-4 flex justify-between items-center min-h-[60px] fixed w-full top-0 left-0 z-20">
+          <nav className="bg-[#c3bef0] shadow-md flex flex justify-between items-center min-h-[60px] fixed w-full top-0 left-0 z-20">
             <a href="/" className="text-2xl font-bold text-gray-800">
-              <img src="logo.jpg" alt="Logo" className="w-16 h-16" />
+              <img src="logo.jpg" alt="Logo" className="w-20 h-16" />
             </a>
 
             {/* Navigation Menu */}
             <ul className={`transition-all duration-200 ease-in-out ${isActive1 ? 'absolute top-[70px] left-0 w-full bg-[#c3bef0] py-4 flex flex-col md:flex-row gap-8' : 'hidden md:flex gap-8'}`}>
-              <li onClick={removeActive}>
-                <a href="/home" className="text-lg font-extrabold cursor-pointer text-transparent bg-clip-text bg-gradient-to-r from-[#430f58] to-[#6643b5] hover:from-[#6643b5] hover:to-[#430f58] transition-all">
+              <li onClick={() => scrollTo('top')}>
+                <span className="text-lg font-extrabold cursor-pointer text-transparent bg-clip-text bg-gradient-to-r from-[#430f58] to-[#6643b5] hover:from-[#6643b5] hover:to-[#430f58] transition-all">
                   Home
-                </a>
+                </span>
               </li>
               <li onClick={openGetStartedModal}>
                 <span className="text-lg font-extrabold cursor-pointer text-transparent bg-clip-text bg-gradient-to-r from-[#430f58] to-[#6643b5] hover:from-[#6643b5] hover:to-[#430f58] transition-all">
@@ -112,9 +113,9 @@ const Home = () => {
         </Modal>
       )}
        {/* Main Container */}
-       <div className="relative z-20 mt-60 flex flex-col justify-center p-2 md:p-11 items-center gap-y-10">
+       <div className=" z-20 mt-60 flex flex-col justify-center p-2 md:p-11 items-center gap-y-20 ">
         <motion.h1
-          className="text-6xl relative z-20 sm:text-7xl lg:text-8xl pt-50 font-extrabold tracking-wide text-center text-white font-serif mb-6"
+          className="text-6xl z-20 sm:text-7xl lg:text-8xl pt-50 font-extrabold tracking-wide text-center text-white font-serif mb-6"
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{
@@ -136,14 +137,17 @@ const Home = () => {
         </p>
         <Layout1 />
       </div>
+      <div id="contact-us">
+
+      </div>
      <br/>
      <br/>
      <br/>
      <br/>
      <br/><br/>
       {/* Contact Us Section */}
-      <div id="contact-us" className="min-h-screen mt-60">
-        <div className="relative z-20 flex flex-col justify-center p-2 md:p-11 items-center gap-y-10">
+      <div  className="min-h-screen mt-60">
+        <div className=" z-20 flex flex-col justify-center p-2 md:p-11 items-center gap-y-10">
           <motion.h1
             className="text-6xl relative z-20 sm:text-7xl lg:text-8xl pt-50 font-extrabold tracking-wide text-center text-white font-serif mb-6"
             initial={{ opacity: 0, scale: 0.5 }}
@@ -166,9 +170,9 @@ const Home = () => {
         <br/>
         <br/>
         <br/>
-        <div className="flex flex-col lg:flex-row w-full min-h-screen space-y-4 lg:space-y-0 lg:space-x-4">
+        <div className="flex flex-col gap-30 lg:flex-row w-full min-h-screen space-y-10 lg:space-y-0 lg:space-x-4">
           {/* Left Side: Contact Us */}
-          <div className="flex items-start justify-center w-full lg:w-1/2 p-4">
+          <div className="flex items-start justify-center w-screen lg:w-1/2 p-4">
             <ContactUs />
           </div>
 
@@ -179,7 +183,7 @@ const Home = () => {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Home

@@ -2,7 +2,7 @@ import * as motion from "motion/react-client";
 
 export default function Gestures() {
     return (
-        <div className="flex flex-col md:flex-row py-10 px-4 sm:px-6 md:px-8 lg:px-10 w-full gap-x-10 h-full">
+        <div className="flex flex-col md:flex-row py-10 px-4 sm:px-6 md:px-8 lg:px-10 w-screen gap-x-10 h-full">
             <motion.div
                 whileHover={{ 
                     scale: 1.2, 
@@ -68,14 +68,14 @@ export default function Gestures() {
  */
 const box = {
     width: "100%", // Full width on small screens
-    height: "250px", // Adjust height for small screens, but ensure it's enough to fill the screen
+    height: "300px", // Adjust height for small screens, but ensure it's enough to fill the screen
     maxWidth: "100%", // Ensure the width is responsive
-    paddingLeft: "20px",
-    paddingRight: "20px",
+    paddingLeft: "30px",
+    paddingRight: "30px",
     backgroundColor: "#c3bef0",
     borderRadius: 10,
     border: "2px solid #ffffff",
-    boxShadow: "0 0 1rem #ffffff, inset 0 0 1rem rgb(255, 255, 255)",
+    boxShadow: "0 0 2rem #ffffff, inset 0 0 2rem rgb(255, 255, 255)",
     backgroundSize: "cover", // Ensures the background image covers the div properly
     backgroundPosition: "center", // Centers the background image
 };
