@@ -2,7 +2,7 @@ import * as motion from "motion/react-client";
 
 export default function Gestures() {
     return (
-        <div className="flex flex-col md:flex-row py-10 px-4 sm:px-6 md:px-8 lg:px-10 w-screen gap-x-10 h-full">
+        <div className="z-20 flex flex-col md:flex-row py-10 px-4 sm:px-6 md:px-8 lg:px-10 w-screen gap-x-10 h-full">
             <motion.div
                 whileHover={{ 
                     scale: 1.2, 

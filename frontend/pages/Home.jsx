@@ -57,20 +57,16 @@ const Home = () => {
 
             {/* Navigation Menu */}
             <ul className={`transition-all duration-200 ease-in-out ${isActive1 ? 'absolute top-[70px] left-0 w-full bg-[#c3bef0] py-4 flex flex-col md:flex-row gap-8' : 'hidden md:flex gap-8'}`}>
-              <li onClick={() => scrollTo('top')}>
-                <span className="text-lg font-extrabold cursor-pointer text-transparent bg-clip-text bg-gradient-to-r from-[#430f58] to-[#6643b5] hover:from-[#6643b5] hover:to-[#430f58] transition-all">
+              <li onClick={() => scrollTo('top')} className="text-lg font-extrabold cursor-pointer ">
                   Home
-                </span>
+          
               </li>
-              <li onClick={openGetStartedModal}>
-                <span className="text-lg font-extrabold cursor-pointer text-transparent bg-clip-text bg-gradient-to-r from-[#430f58] to-[#6643b5] hover:from-[#6643b5] hover:to-[#430f58] transition-all">
+              <li onClick={openGetStartedModal} className="text-lg font-extrabold cursor-pointer ">
                   Get Started
-                </span>
+                
               </li>
-              <li onClick={() => scrollTo('contact-us')}>
-                <span className="text-lg font-extrabold cursor-pointer text-transparent bg-clip-text bg-gradient-to-r from-[#430f58] to-[#6643b5] hover:from-[#6643b5] hover:to-[#430f58] transition-all">
+              <li onClick={() => scrollTo('contact-us')} className="text-lg font-extrabold cursor-pointer transition-all">
                   Contact Us
-                </span>
               </li>
             </ul>
 
@@ -113,7 +109,7 @@ const Home = () => {
         </Modal>
       )}
        {/* Main Container */}
-       <div className=" z-20 mt-60 flex flex-col justify-center p-2 md:p-11 items-center gap-y-20 ">
+       <div className="z-20 mt-60 flex flex-col justify-center p-2 md:p-11 items-center gap-y-20 ">
         <motion.h1
           className="text-6xl z-20 sm:text-7xl lg:text-8xl pt-50 font-extrabold tracking-wide text-center text-white font-serif mb-6"
           initial={{ opacity: 0, scale: 0.5 }}

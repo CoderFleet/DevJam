@@ -71,7 +71,7 @@ const Signup = () => {
     placeholder="Name" 
     className="bg-[#c3bef0] w-72 h-10 p-3 rounded-lg mb-2"
     value={name}
-    onChange={(e)=>setEmail(e.target.value)}
+    onChange={(e)=>setName(e.target.value)}
      />
     <input
      type="text"
