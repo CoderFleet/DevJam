@@ -57,20 +57,16 @@ const Home = () => {
 
             {/* Navigation Menu */}
             <ul className={`transition-all duration-200 ease-in-out ${isActive1 ? 'absolute top-[70px] left-0 w-full bg-[#c3bef0] py-4 flex flex-col md:flex-row gap-8' : 'hidden md:flex gap-8'}`}>
-              <li onClick={() => scrollTo('top')}>
-                <span className="text-lg font-extrabold cursor-pointer text-transparent bg-clip-text bg-gradient-to-r from-[#430f58] to-[#6643b5] hover:from-[#6643b5] hover:to-[#430f58] transition-all">
-                  Home
-                </span>
-              </li>
-              <li onClick={openGetStartedModal}>
-                <span className="text-lg font-extrabold cursor-pointer text-transparent bg-clip-text bg-gradient-to-r from-[#430f58] to-[#6643b5] hover:from-[#6643b5] hover:to-[#430f58] transition-all">
+              <li onClick={() => scrollTo('top')}
+               className="text-lg font-extrabold cursor-pointer ">
+                  Home              </li>
+              <li onClick={openGetStartedModal}
+               className="text-lg font-extrabold cursor-pointer ">
                   Get Started
-                </span>
               </li>
-              <li onClick={() => scrollTo('contact-us')}>
-                <span className="text-lg font-extrabold cursor-pointer text-transparent bg-clip-text bg-gradient-to-r from-[#430f58] to-[#6643b5] hover:from-[#6643b5] hover:to-[#430f58] transition-all">
+              <li onClick={() => scrollTo('contact-us')}
+               className="text-lg font-extrabold cursor-pointer">
                   Contact Us
-                </span>
               </li>
             </ul>
 
