@@ -25,8 +25,10 @@ const uploadToCloud = async (localPath) => {
   try {
     if (!localPath) return null;
     const res = await cloud.uploader.upload(localPath, {
-      // FIXME: file type error on cloudinary
-      resource_type: "raw",
+      use_filename: true,
+      unique_filename: false,
+      overwrite: true,
+      resource_type: "auto",
     });
     console.log("File Uploaded Successfully", res.url);
     deleteLocalFile(localPath);
