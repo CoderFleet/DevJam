@@ -4,7 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { uploadToCloud } from "../utils/cloudinary.js";
 
-export const createAssignment = asyncHandler(async (req, res) => {
+const createAssignment = asyncHandler(async (req, res) => {
   const { title, description, due_date } = req.body;
 
   if ([title, due_date].some((field) => field?.trim() === "")) {
@@ -42,3 +42,20 @@ export const createAssignment = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, assignmentFromDB, "Assignment Ban Gaya 🤩!"));
 });
 
+const getUserAssignments = asyncHandler(async (req, res) => {
+  const userId = req.user.id;
+
+  const assignments = await Assignment.find({ user: userId }).sort({
+    createdAt: -1,
+  });
+
+  if (!assignments.length) {
+    throw new ApiError(404, "No assignments found for this user...");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, assignments, "Assignments Fetched"));
+});
+
+export { createAssignment, getUserAssignments };
