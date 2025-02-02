@@ -136,6 +136,7 @@ const login = asyncHandler(async (req, res) => {
     );
 });
 
+// Logout Functionality
 const logout = asyncHandler(async (req, res) => {
   await User.findByIdAndUpdate(
     req.user._id,
@@ -161,6 +162,7 @@ const logout = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "User logged Out successfuly"));
 });
 
+// Endpoint that has to be hit to regenerate token
 const refreshAccessToken = asyncHandler(async (req, res) => {
   const incomingToken = req.cookies.refreshToken || req.body.refreshToken;
 
@@ -202,6 +204,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     );
 });
 
+// Get Current user data lol
 const getCurrentUser = asyncHandler(async (req, res) => {
   return res
     .status(200)
