@@ -20,10 +20,14 @@ app.use(express.static("public"));
 // Cookie Parser configuration for tokens
 app.use(cookieParser());
 
-// TODO: Routes will go here
+// TODO: Routes will go here ✔
 import userRouter from "./routes/user.routes.js";
+import assignmentRouter from "./routes/assignment.routes.js";
+import taskRouter from "./routes/task.routes.js";
 
 // Routes Declaration
 app.use("/users", userRouter);
+app.use("/assignments", assignmentRouter);
+app.use("/tasks", taskRouter);
 
 export { app };
