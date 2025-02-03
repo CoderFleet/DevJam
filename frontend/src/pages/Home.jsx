@@ -57,7 +57,11 @@ const Home = () => {
 
             {/* Navigation Menu */}
             <ul className={`transition-all duration-200 ease-in-out ${isActive1 ? 'absolute top-[70px] left-0 w-full bg-[#c3bef0] py-4 flex flex-col md:flex-row gap-8' : 'hidden md:flex gap-8'}`}>
-              <li onClick={() => scrollTo('top')} className="text-lg font-extrabold cursor-pointer ">
+              <li onClick={() => scrollTo('top')}
+               className="text-lg font-extrabold cursor-pointer ">
+                  Home              </li>
+              <li onClick={openGetStartedModal}
+               className="text-lg font-extrabold cursor-pointer ">
                   Home
           
               </li>
@@ -65,7 +69,8 @@ const Home = () => {
                   Get Started
                 
               </li>
-              <li onClick={() => scrollTo('contact-us')} className="text-lg font-extrabold cursor-pointer transition-all">
+              <li onClick={() => scrollTo('contact-us')}
+               className="text-lg font-extrabold cursor-pointer">
                   Contact Us
               </li>
             </ul>
