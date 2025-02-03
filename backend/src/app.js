@@ -24,10 +24,12 @@ app.use(cookieParser());
 import userRouter from "./routes/user.routes.js";
 import assignmentRouter from "./routes/assignment.routes.js";
 import taskRouter from "./routes/task.routes.js";
+import messageRouter from "./routes/message.routes.js";
 
 // Routes Declaration
 app.use("/users", userRouter);
 app.use("/assignments", assignmentRouter);
 app.use("/tasks", taskRouter);
+app.use("/messages", messageRouter);
 
 export { app };
