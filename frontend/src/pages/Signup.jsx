@@ -29,7 +29,7 @@ const Signup = () => {
 
     try {
       await register(data);
-      navigate("/login");
+      navigate("/dashboard");
     } catch (error) {
       setError(error.response?.data?.message || "Registration failed");
     }
