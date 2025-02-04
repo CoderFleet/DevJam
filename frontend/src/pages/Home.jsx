@@ -60,11 +60,7 @@ const Home = () => {
               <li onClick={() => scrollTo('top')}
                className="text-lg font-extrabold cursor-pointer ">
                   Home              </li>
-              <li onClick={openGetStartedModal}
-               className="text-lg font-extrabold cursor-pointer ">
-                  Home
-          
-              </li>
+             
               <li onClick={openGetStartedModal} className="text-lg font-extrabold cursor-pointer ">
                   Get Started
                 

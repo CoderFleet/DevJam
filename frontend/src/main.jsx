@@ -6,9 +6,12 @@ import ModalProvider from './context/ModalContext.jsx'
 import { UserProvider } from './context/UserContext.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext.jsx'
+import { TaskProvider } from './context/TaskContext.jsx'
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
   <BrowserRouter>
+  <TaskProvider>
   <AuthProvider>
    <UserProvider>
     <ModalProvider>
@@ -16,6 +19,7 @@ createRoot(document.getElementById('root')).render(
     </ModalProvider>
     </UserProvider>
     </AuthProvider>
+    </TaskProvider>
   </BrowserRouter>
   </StrictMode>,
 )
