@@ -22,4 +22,4 @@ createRoot(document.getElementById('root')).render(
     </TaskProvider>
   </BrowserRouter>
   </StrictMode>,
-)
+
