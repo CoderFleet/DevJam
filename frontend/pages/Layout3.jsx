@@ -1,8 +1,8 @@
 import React from "react";
 import { addDays, subDays } from "date-fns";
-import EventCalendar from "./EventCalender";
+import EventCalendar from "../src/calender/calender";
 
-const Calender =()=> {
+const Events = () => {
   const events = [
     { date: new Date("2025-02-10"), title: "Assgn" },  ];
 
@@ -18,4 +18,4 @@ const Calender =()=> {
   );
 };
 
-export default Calender;
+export default Events;
