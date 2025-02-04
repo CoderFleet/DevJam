@@ -26,7 +26,7 @@ const ContactUs = () => {
   };
 
   return (
-
+    <div className="scoped-styles">
     <div
     className="w-150 bg-[#c3bef0]  text-black  px-4 py-2 rounded-lg text-lg font-semibold opacity-100  transition-all duration-300"
     style={{ boxShadow: "0 0 1rem #ffffff, inset 0 0 1rem #ffffff" }}
@@ -133,6 +133,7 @@ const ContactUs = () => {
         </a>
       </div>
     </div>
+  </div>
   </div>
     );
 };

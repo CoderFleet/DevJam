@@ -74,6 +74,7 @@ export default function Photos() {
 
   return (
     <>
+    <div className="scoped-styles">
       <style>{responsiveStyles}</style>
       <ul style={container}>
         {order.map(({ color, text, imgSrc }, index) => (
@@ -110,6 +111,7 @@ export default function Photos() {
           }
         `}
       </style>
+      </div>
     </>
   );
 }

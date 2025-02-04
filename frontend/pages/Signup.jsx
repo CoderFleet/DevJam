@@ -1,101 +1,93 @@
-import React, { useContext, useState } from 'react';
-import { Link,useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import UserContext from '../context/UserContext';
-
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { register } from '../utils/api';
 
 const Signup = () => {
-  const[email,setEmail]=useState('');
-  const [password,setPassword]=useState('');
-  const[name,setName]=useState('');
-  const[username,setUsername]=useState('');
+  const [formData, setFormData] = useState({
+    fullName: "",
+    username: "",
+    email: "",
+    password: "",
+    avatar: null,
+  });
+  const [error, setError] = useState("");  // State for displaying error message
+  const navigate = useNavigate();
 
-
-  const navigate=useNavigate();
-
-  const{user,setUser}=useContext(UserContext);
-
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    const newUser = {
-      fullName: name,
-      username:username,
-      email:email,
-      password:password,
-    };
-
-    try{
-      const response=await axios.post(`${import.meta.env.VITE_BASE_URL}/register`)
-      if (response.status === 201) {
-        const data = response.data;
-        setUser(data.user);
-        localStorage.setItem('token',data.token)
-        navigate('/main-page');
-    }
-  }catch(error){
-    // Enhanced error handling
-    console.error('Error during registration:', error); // Log entire error object
-  
-    if (error.response) {
-      // If error.response exists, we can get details from the server's response
-      console.error('Error response:', error.response);  // Log the entire error response object
-
-      const errorData = error.response.data;
-      if (errorData) {
-        const message = errorData.message || 'Something went wrong on the server.';
-        alert(`Error: ${message}`);
-      } else {
-        alert('Something went wrong on the server.');
-      }
-    } else if (error.request) {
-      alert('Network error. Please check your internet connection.');
-    } else if (error.message) {
-      alert(error.message);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "avatar") {
+      setFormData((prev) => ({ ...prev, avatar: e.target.files[0] }));
     } else {
-      alert('An error occurred while setting up the request.');
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
+  };
 
-    setEmail('');
-    setName('');
-    setPassword('');
-    setUsername('');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = new FormData();
+    Object.keys(formData).forEach((key) => data.append(key, formData[key]));
 
-  }
-};
+    try {
+      await register(data);
+      navigate("/dashboard");
+    } catch (error) {
+      setError(error.response?.data?.message || "Registration failed");
+    }
+  };
+
   return (
-    <form onSubmit={submitHandler} className='flex flex-col items-center justify-center gap-6'>
-    {/* Sign Up Form */}
-    <h1 className="text-3xl font-semibold mb-5 text-black">Create Account</h1>
-    <input 
-    type="text" 
-    placeholder="Name" 
-    className="bg-[#c3bef0] w-72 h-10 p-3 rounded-lg mb-2"
-    value={name}
-    onChange={(e)=>setName(e.target.value)}
-     />
-    <input
-     type="text"
-      placeholder="Username" 
-      className="bg-[#c3bef0] w-72 h-10 p-3 rounded-lg mb-2"
-      value={username}
-      onChange={(e)=>setUsername(e.target.value)}
-       />
-    <input type="email"
-     placeholder="Email"
-      className="bg-[#c3bef0] w-72 h-10 p-3 rounded-lg mb-2" 
-      value={email}
-      onChange={(e)=>setEmail(e.target.value)}
-      />
-    <input type="password" 
-    placeholder="Password" 
-    className="bg-[#c3bef0] w-72 h-10 p-3 rounded-lg mb-2" 
-    value={password}
-    onChange={(e)=>setPassword(e.target.value)}
-    />
-    <button className="mt-4 h-10 w-24 bg-gradient-to-r from-[#430f58] to-[#6643b5] text-white rounded-lg uppercase font-semibold">
-      Sign Up
-    </button>
-  </form>
+    <div className="scoped-styles">
+    <div className="flex justify-center items-center h-screen">
+      <form onSubmit={handleSubmit} className="flex flex-col items-center justify-center gap-6">
+        <h1 className="text-3xl font-semibold mb-5 text-black">Create Account</h1>
+        <input 
+          type="text" 
+          name="fullName"
+          value={formData.fullName}
+          placeholder="Full Name" 
+          className="bg-[#c3bef0] w-72 h-10 p-3 rounded-lg mb-2"
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="username"
+          value={formData.username}
+          placeholder="Username" 
+          className="bg-[#c3bef0] w-72 h-10 p-3 rounded-lg mb-2"
+          onChange={handleChange}
+        />
+        <input 
+          type="email"
+          name="email"
+          placeholder="Email"
+          className="bg-[#c3bef0] w-72 h-10 p-3 rounded-lg mb-2" 
+          value={formData.email}
+          onChange={handleChange}
+        />
+        <input 
+          type="password" 
+          name="password"
+          value={formData.password}
+          placeholder="Password" 
+          className="bg-[#c3bef0] w-72 h-10 p-3 rounded-lg mb-2" 
+          onChange={handleChange}
+        />
+        <input
+          type="file"
+          name="avatar"
+          onChange={handleChange}
+          className="bg-[#c3bef0] w-72 h-10 p-3 rounded-lg mb-2" 
+        />
+        <button 
+          type="submit" 
+          className="mt-4 h-10 w-24 bg-gradient-to-r from-[#430f58] to-[#6643b5] text-white rounded-lg uppercase font-semibold"
+        >
+          Register
+        </button>
+        {error && <p className="mt-4 text-red-500 text-center">{error}</p>}
+      </form>
+    </div>
+    </div>
   );
 };
 
