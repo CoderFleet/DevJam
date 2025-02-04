@@ -2,22 +2,21 @@ import React from 'react'
 import { BrowserRouter as Router,Route,Routes } from 'react-router-dom'
 import { useState } from 'react'
 import './App.css'
-import Home from '../pages/Home'
-import ModalProvider from '../context/ModalContext'
-import Login from '../pages/Login'
-import Signup from '../pages/Signup'
+import Home from './pages/Home'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
+import Dashboard from './pages/Dashboard'
 function App() {
 
   return (
-    <ModalProvider>
-    <Router>
+
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/register" element={<Signup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
-    </Router>
-    </ModalProvider>
+   
   )
 }
 
