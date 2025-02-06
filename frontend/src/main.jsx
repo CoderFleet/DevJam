@@ -25,4 +25,4 @@ createRoot(document.getElementById('root')).render(
     </AssignmentProvider>
   </BrowserRouter>
   </StrictMode>,
-)
+

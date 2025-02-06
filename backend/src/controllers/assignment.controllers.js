@@ -3,7 +3,8 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { uploadToCloud } from "../utils/cloudinary.js";
-
+import mongoose from "mongoose";
+import cloudinary from "cloudinary";
 const createAssignment = asyncHandler(async (req, res) => {
   const { title, description, due_date } = req.body;
 
@@ -30,6 +31,8 @@ const createAssignment = asyncHandler(async (req, res) => {
     due_date,
     user: req.user._id,
   });
+
+
 
   const assignmentFromDB = await Assignment.findById(assignment._id);
 
@@ -63,7 +66,7 @@ const updateAssignment = asyncHandler(async (req, res) => {
   const { title, description, due_date } = req.body;
 
   // Validate ObjectId
-  if (!isValidObjectId(assignmentId)) {
+  if (!mongoose.Types.ObjectId.isValid(assignmentId)) {
     throw new ApiError(400, "Invalid Assignment ID");
   }
 
