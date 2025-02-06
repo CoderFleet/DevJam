@@ -30,10 +30,10 @@ const QuoteDisplay = () => {
         <p>Loading quote...</p>
       ) : (
         <div>
-          <blockquote className={` ${theme==="dark"?"text-xl font-semibold text-white":"text-xl font-semibold text-back"}`}>
-            {quote}
+<blockquote className={`text-3xl font-serif italic font-bold h-10${theme === "dark" ? "text-white" : "text-black"}`}>
+{quote}
           </blockquote>
-          <p className="text-lg text-gray-600 dark:text-gray-400">- {author}</p>
+          <p className={` ${theme==="dark"?"text-xl font-serif  p-5 italic font-semibold text-white":"text-xl font-serif font-semibold  itaic text-back"}`}>- {author}</p>
         </div>
       )}
     </div>

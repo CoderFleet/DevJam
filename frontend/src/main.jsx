@@ -7,10 +7,12 @@ import { UserProvider } from './context/UserContext.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext.jsx'
 import { TaskProvider } from './context/TaskContext.jsx'
+import { AssignmentProvider } from './context/AssignmentContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
   <BrowserRouter>
+  <AssignmentProvider>
   <TaskProvider>
   <AuthProvider>
    <UserProvider>
@@ -20,6 +22,7 @@ createRoot(document.getElementById('root')).render(
     </UserProvider>
     </AuthProvider>
     </TaskProvider>
+    </AssignmentProvider>
   </BrowserRouter>
   </StrictMode>,
 )

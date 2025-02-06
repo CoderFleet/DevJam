@@ -4,6 +4,21 @@ import { FaChartBar, FaCalendarAlt, FaFacebookMessenger, FaUsersCog } from "reac
 import { IoIosLogOut } from "react-icons/io";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { AssignmentProvider } from "../context/AssignmentContext";
+import { logout } from "../utils/api";
+
+
+const handleLogout = async () => {
+  try {
+    await logout();  // This will call the logout API on your backend
+    localStorage.removeItem("token");  // Optionally remove the access token from local storage
+    window.location.href = "/";  // Redirect to the login page
+  } catch (error) {
+    console.error("Error logging out:", error);
+    alert("Error logging out. Please try again.");
+  }
+};
+
 
 const Sidebar = () => {
   const { theme } = useTheme(); // Get theme state
@@ -13,7 +28,10 @@ const Sidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+
+
   return (
+    
     <div>
       {/* Sidebar toggle button */}
       <button
@@ -41,10 +59,20 @@ const Sidebar = () => {
                 <span className="flex-1">Dashboard</span>
               </Link>
             </li>
+            <li>
+              <Link
+                to="/assignments"
+                className={`${theme === "dark" ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-100 "}`}
+              >
+                <FaUsersCog className="mr-3 text-3xl" />
+                <span className="flex-1">Assignments</span>
+              </Link>
+         
+            </li>
 
             <li>
               <Link
-                to ="/heatmap"
+                to ="/calender"
                 className={`${theme === "dark" ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-100 "}`}
               >
                 <FaCalendarAlt className="mr-3 text-3xl" />
@@ -54,7 +82,7 @@ const Sidebar = () => {
 
             <li>
               <Link 
-                to="/chat"
+                to="/chats"
                 className={`${theme === "dark" ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-100 "}`}
               >
                 <FaFacebookMessenger className="mr-3 text-3xl" />
@@ -64,11 +92,11 @@ const Sidebar = () => {
 
             <li>
               <Link
-                to="/calender"
+                to="/progress"
                 className={`${theme === "dark" ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-100 "}`}
               >
                 <FaUsersCog className="mr-3 text-3xl" />
-                <span className="flex-1">Calender</span>
+                <span className="flex-1">Progress</span>
               </Link>
             </li>
 
@@ -78,7 +106,7 @@ const Sidebar = () => {
                 className={`${theme === "dark" ? "text-white hover:bg-gray-700" : "text-black hover:bg-gray-100 "}`}
               >
                 <IoIosLogOut className="mr-3 text-3xl mt-5" />
-                <span className="flex-1">Sign Out</span>
+                <button  className="flex-1"onClick={handleLogout}>Logout</button>
               </a>
             </li>
           </ul>

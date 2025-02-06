@@ -15,7 +15,7 @@ API.interceptors.request.use((config) => {
   });
   
 
-/* ----------- Task API Calls ----------- */
+
 
 // Create a new task
 export const createTask = (taskData) => API.post("/", taskData);

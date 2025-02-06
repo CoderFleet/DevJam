@@ -4,27 +4,29 @@ import { createTask, getUserTasks, updateTask, deleteTask } from "../utils/apita
 // Create Context
 const TaskContext = createContext();
 
-// Custom hook to use the TaskContext
+// Custom hook to use TaskContext
 export const useTasks = () => {
   return useContext(TaskContext);
 };
 
+// Function to validate MongoDB ObjectId
+const isValidObjectId = (id) => /^[a-f\d]{24}$/i.test(id);
+
+
 // TaskProvider Component
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState({ title: "", description: "", due_date: "" });
-  const [editingTask, setEditingTask] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Fetch tasks from the API
+  // Fetch tasks from API
   const fetchTasks = async () => {
     setIsLoading(true);
     try {
       const response = await getUserTasks();
-      setTasks(response.data.data);
+      setTasks(response.data.data); // Assuming response.data.data holds the tasks array
     } catch (err) {
-      setError("Error fetching tasks");
+      setError(err.response?.data?.message || "Error fetching tasks");
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -32,15 +34,13 @@ export const TaskProvider = ({ children }) => {
   };
 
   // Add a new task
-  const handleCreate = async () => {
-    if (!newTask.title || !newTask.due_date) return;
+  const handleCreate = async (taskData) => {
     setIsLoading(true);
     try {
-      await createTask(newTask);
-      setNewTask({ title: "", description: "", due_date: "" });
-      fetchTasks(); // Re-fetch tasks after adding
+      await createTask(taskData);
+      fetchTasks(); // Refresh task list
     } catch (err) {
-      setError("Error creating task");
+      setError(err.response?.data?.message || "Error creating task");
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -48,15 +48,18 @@ export const TaskProvider = ({ children }) => {
   };
 
   // Update an existing task
-  const handleUpdate = async (taskId) => {
-    if (!editingTask) return;
+  const handleUpdate = async (taskId, taskData) => {
+    if (!isValidObjectId(taskId)) {
+      setError("Invalid Task ID");
+      return;
+    }
+
     setIsLoading(true);
     try {
-      await updateTask(taskId, editingTask);
-      setEditingTask(null);
-      fetchTasks(); // Re-fetch tasks after updating
+      await updateTask(taskId, taskData);
+      fetchTasks(); // Refresh task list
     } catch (err) {
-      setError("Error updating task");
+      setError(err.response?.data?.message || "Error updating task");
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -65,38 +68,30 @@ export const TaskProvider = ({ children }) => {
 
   // Delete a task
   const handleDelete = async (taskId) => {
+    if (!isValidObjectId(taskId)) {
+      setError("Invalid Task ID");
+      return;
+    }
+
     setIsLoading(true);
     try {
       await deleteTask(taskId);
-      fetchTasks(); // Re-fetch tasks after deleting
+      fetchTasks(); // Refresh task list
     } catch (err) {
-      setError("Error deleting task");
+      setError(err.response?.data?.message || "Error deleting task");
       console.error(err);
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Initialize by fetching tasks
+  // Load tasks when component mounts
   useEffect(() => {
     fetchTasks();
   }, []);
 
   return (
-    <TaskContext.Provider
-      value={{
-        tasks,
-        newTask,
-        setNewTask,
-        editingTask,
-        setEditingTask,
-        isLoading,
-        error,
-        handleCreate,
-        handleUpdate,
-        handleDelete,
-      }}
-    >
+    <TaskContext.Provider value={{ tasks, fetchTasks, handleCreate, handleUpdate, handleDelete, isLoading, error }}>
       {children}
     </TaskContext.Provider>
   );
