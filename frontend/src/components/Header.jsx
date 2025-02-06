@@ -18,12 +18,12 @@ const Header = () => {
           <div className="flex items-center justify-center space-x-4">
             <button className={`inline-flex items-center p-2 text-sm rounded-lg sm:hidden 
                 ${theme === "dark" ? "text-gray-400 hover:bg-gray-700 focus:ring-gray-600" : "text-gray-500 hover:bg-gray-100 focus:ring-gray-200"}`}>
-              <HiOutlineMenuAlt2 className="text-2xl"/>
+              <HiOutlineMenuAlt2 className="text-2xl "/>
             </button>
 
             <a href="#" className="flex ms-2 md:me-24">
               <MdSpaceDashboard className="h-8 me-3 text-2xl text-violet-500"/>
-              <span className={`self-center text-2xl font-semibold sm:text-3xl whitespace-nowrap 
+              <span className={`self-center text-2xl font-bold sm:text-3xl whitespace-nowrap 
                 ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
                 Assignify
               </span>
@@ -42,3 +42,8 @@ const Header = () => {
 }
 
 export default Header;
+
+
+
+
+
