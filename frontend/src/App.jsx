@@ -48,12 +48,12 @@ const App = () => {
         <Route
           path="/dashboard"
           // eslint-disable-next-line no-constant-condition
-          element={true ? <Dashboard /> : <Navigate to="/" />}
+          element={authUser ? <Dashboard /> : <Navigate to="/" />}
         />
         <Route
           path="/assignments"
           // eslint-disable-next-line no-constant-condition
-          element={true ? <Assignments /> : <Navigate to="/" />}
+          element={authUser ? <Assignments /> : <Navigate to="/" />}
         />
       </Routes>
 
