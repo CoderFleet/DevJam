@@ -1,98 +1,60 @@
-import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import UserContext from '../context/UserContext';
-import axios from 'axios'
+import { useState } from "react";
+import { useAuthStore } from "../src/store/useAuthStore";
+import { LuEye, LuEyeOff } from "react-icons/lu";
 
 const Login = () => {
   // State variables for email and password
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  
-  // Hook for navigation
-  const navigate = useNavigate();
-  
-  // Accessing setUser function from UserContext
-  const { setUser } = useContext(UserContext);
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const { login, isLoggingIn } = useAuthStore();
 
-  // Handler for form submission
-  const submitHandler = async (e) => {
-    e.preventDefault(); // Prevent default form submission behavior
-    
-    // User data to be sent to the server
-    const userData = {
-      email: email,
-      password: password,
-    };
-
-    try {
-      // Sending a POST request to the login endpoint
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/login`, userData);
-      
-      // If login is successful
-      if (response.status === 200) {
-        const data = response.data;
-        
-        // Setting the user data in context
-        setUser(data.user);
-        
-        // Storing the token and user data in local storage
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        
-        // Navigating to the main page
-        navigate('/main-page');
-      }
-    } catch (error) {
-      // Logging the error to the console
-      console.error('Error during login:', error);
-
-      // Handling different types of errors
-      if (error.response) {
-        console.error('Error response:', error.response);
-        const errorData = error.response.data;
-        if (errorData) {
-          const message = errorData.message || 'Something went wrong on the server.';
-          alert(`Error: ${message}`);
-        } else {
-          alert('Something went wrong on the server.');
-        }
-      } else if (error.request) {
-        alert('Network error. Please check your internet connection.');
-      } else if (error.message) {
-        alert(error.message);
-      } else {
-        alert('An error occurred while setting up the request.');
-      }
-    }
-
-    // Clearing the form fields
-    setEmail('');
-    setPassword('');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await login(formData);
   };
 
   return (
-    <form onSubmit={submitHandler} className='flex flex-col items-center justify-center gap-6'>
-      <h1 className="text-3xl font-semibold mb-5 text-black">Sign In</h1>
-      <span className="text-xl mb-3">or use your email & password</span>
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col items-center gap-6 p-4">
+      <h1 className="text-3xl font-semibold text-black">Sign In</h1>
+      <span className="text-xl">or use your email & password</span>
+
       <input
         type="email"
         placeholder="Email"
-        className="bg-[#c3bef0] w-72 h-10 p-3 rounded-lg mb-2"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        className="input input-bordered w-72"
+        value={formData.email}
+        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
       />
-      <input
-        type="password"
-        placeholder="Password"
-        className="bg-[#c3bef0] w-72 h-10 p-3 rounded-lg mb-2"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+
+      {/* Password Input with Toggle */}
+      <div className="relative w-72">
+        <input
+          type={showPassword ? "text" : "password"}
+          placeholder="Password"
+          className="input input-bordered w-full pr-10"
+          value={formData.password}
+          onChange={(e) =>
+            setFormData({ ...formData, password: e.target.value })
+          }
+        />
+        <button
+          type="button"
+          className="absolute inset-y-0 right-3 flex items-center"
+          onClick={() => setShowPassword(!showPassword)}>
+          {showPassword ? <LuEyeOff size={20} /> : <LuEye size={20} />}
+        </button>
+      </div>
+
       <button
         type="submit"
-        className="mt-4 h-10 w-24 bg-gradient-to-r from-[#430f58] to-[#6643b5] text-white rounded-lg cursor-pointer uppercase font-semibold"
-      >
-        Sign In 
+        className="btn btn-primary w-24"
+        disabled={isLoggingIn}>
+        {isLoggingIn ? "Signing In..." : "Sign In"}
       </button>
     </form>
   );

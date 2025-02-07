@@ -4,6 +4,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { uploadToCloud } from "../utils/cloudinary.js";
+import { getReceiverSocketId, io } from "../utils/socket.js";
 
 const getUsers = asyncHandler(async (req, res) => {
   try {
@@ -35,8 +36,8 @@ const getMessages = asyncHandler(async (req, res) => {
     // Fetching messages
     const messages = await Message.find({
       $or: [
-        { sender: loggedUserId, receiver: receiverId },
-        { sender: receiverId, receiver: loggedUserId },
+        { senderId: loggedUserId, receiverId: receiverId },
+        { senderId: receiverId, receiverId: loggedUserId },
       ],
     }).sort({ createdAt: 1 });
 
@@ -73,14 +74,19 @@ const sendMessage = asyncHandler(async (req, res) => {
     }
 
     const message = await Message.create({
-      sender: loggedUserId,
-      receiver: receiverId,
+      senderId: loggedUserId,
+      receiverId: receiverId,
       text,
       doc: doc ? doc.url : null,
     });
 
     if (!message) {
       throw new ApiError(400, "Message couldn't be saved");
+    }
+
+    const receiverSocketId = getReceiverSocketId(receiverId);
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("newMessage", message);
     }
 
     return res.status(201).json(new ApiResponse(201, message, "Message sent"));
