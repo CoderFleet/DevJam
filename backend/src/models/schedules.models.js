@@ -13,6 +13,12 @@ const scheduleSchema = new Schema(
     assignmentId: {
       type: Schema.Types.ObjectId,
       ref: "Assignment",
+      default: null,
+    },
+    taskId: {
+      type: Schema.Types.ObjectId,
+      ref: "Task",
+      default: null,
     },
     message: {
       type: String,
@@ -28,4 +34,4 @@ const scheduleSchema = new Schema(
   }
 );
 
-export const Task = mongoose.model("Task", scheduleSchema);
+export const Schedule = mongoose.model("Schedule", scheduleSchema);

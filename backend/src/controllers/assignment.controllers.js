@@ -2,7 +2,8 @@ import { Assignment } from "../models/assignment.models.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { uploadToCloud } from "../utils/cloudinary.js";
+import { uploadToCloud, cloud } from "../utils/cloudinary.js";
+import mongoose, { isValidObjectId } from "mongoose";
 
 const createAssignment = asyncHandler(async (req, res) => {
   const { title, description, due_date } = req.body;
@@ -17,7 +18,7 @@ const createAssignment = asyncHandler(async (req, res) => {
         console.log(localPath);
         const doc = await uploadToCloud(localPath);
 
-        return doc.url;
+        return doc?.url;
       })
     : [];
 
@@ -49,9 +50,9 @@ const getUserAssignments = asyncHandler(async (req, res) => {
     createdAt: -1,
   });
 
-  if (!assignments.length) {
-    throw new ApiError(404, "No assignments found for this user...");
-  }
+  // if (!assignments.length) {
+  //   throw new ApiError(404, "No assignments found for this user...");
+  // }
 
   return res
     .status(200)
@@ -129,7 +130,7 @@ const deleteAssignment = asyncHandler(async (req, res) => {
     const deleteFilePromises = assignment.docs.map(async (fileUrl) => {
       try {
         const publicId = fileUrl.split("/").pop().split(".")[0]; // Extract public ID (got this from stackoverflow)
-        await cloudinary.uploader.destroy(publicId);
+        await cloud.uploader.destroy(publicId);
       } catch (error) {
         console.error(`Failed to delete file: ${fileUrl}`, error);
       }
@@ -142,4 +143,9 @@ const deleteAssignment = asyncHandler(async (req, res) => {
   return res.status(200).json(new ApiResponse(200, {}, "Khatam tata bye bye"));
 });
 
-export { createAssignment, getUserAssignments, updateAssignment, deleteAssignment };
+export {
+  createAssignment,
+  getUserAssignments,
+  updateAssignment,
+  deleteAssignment,
+};

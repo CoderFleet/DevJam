@@ -67,15 +67,15 @@ export default function Gestures() {
  * ==============   Styles   ================
  */
 const box = {
-    width: "100%", // Full width on small screens
-    height: "300px", // Adjust height for small screens, but ensure it's enough to fill the screen
-    maxWidth: "100%", // Ensure the width is responsive
+    width: "100%",
+    height: "300px",
+    maxWidth: "100%",
     paddingLeft: "30px",
     paddingRight: "30px",
     backgroundColor: "#c3bef0",
     borderRadius: 10,
     border: "2px solid #ffffff",
     boxShadow: "0 0 2rem #ffffff, inset 0 0 2rem rgb(255, 255, 255)",
-    backgroundSize: "cover", // Ensures the background image covers the div properly
-    backgroundPosition: "center", // Centers the background image
+    backgroundSize: "cover",
+    backgroundPosition: "center",
 };

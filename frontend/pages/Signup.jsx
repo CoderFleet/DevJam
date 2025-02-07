@@ -1,101 +1,115 @@
-import React, { useContext, useState } from 'react';
-import { Link,useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import UserContext from '../context/UserContext';
-
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../src/store/useAuthStore"; // Import Zustand store
+import { LuUpload, LuEyeOff, LuEye, LuCheck } from "react-icons/lu";
+import toast from "react-hot-toast";
 
 const Signup = () => {
-  const[email,setEmail]=useState('');
-  const [password,setPassword]=useState('');
-  const[name,setName]=useState('');
-  const[username,setUsername]=useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    username: "",
+    email: "",
+    password: "",
+    avatar: null,
+  });
 
+  const navigate = useNavigate();
+  const { signup, isSigningUp } = useAuthStore();
 
-  const navigate=useNavigate();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
-  const{user,setUser}=useContext(UserContext);
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData((prev) => ({ ...prev, avatar: file }));
+    }
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const newUser = {
-      fullName: name,
-      username:username,
-      email:email,
-      password:password,
-    };
+    if (!formData.avatar) return toast("Please upload an avatar.");
 
-    try{
-      const response=await axios.post(`${import.meta.env.VITE_BASE_URL}/register`)
-      if (response.status === 201) {
-        const data = response.data;
-        setUser(data.user);
-        localStorage.setItem('token',data.token)
-        navigate('/main-page');
+    const form = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      form.append(key, value);
+    });
+
+    try {
+      await signup(form);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Signup error:", error);
     }
-  }catch(error){
-    // Enhanced error handling
-    console.error('Error during registration:', error); // Log entire error object
-  
-    if (error.response) {
-      // If error.response exists, we can get details from the server's response
-      console.error('Error response:', error.response);  // Log the entire error response object
+  };
 
-      const errorData = error.response.data;
-      if (errorData) {
-        const message = errorData.message || 'Something went wrong on the server.';
-        alert(`Error: ${message}`);
-      } else {
-        alert('Something went wrong on the server.');
-      }
-    } else if (error.request) {
-      alert('Network error. Please check your internet connection.');
-    } else if (error.message) {
-      alert(error.message);
-    } else {
-      alert('An error occurred while setting up the request.');
-    }
-
-    setEmail('');
-    setName('');
-    setPassword('');
-    setUsername('');
-
-  }
-};
   return (
-    <form onSubmit={submitHandler} className='flex flex-col items-center justify-center gap-6'>
-    {/* Sign Up Form */}
-    <h1 className="text-3xl font-semibold mb-5 text-black">Create Account</h1>
-    <input 
-    type="text" 
-    placeholder="Name" 
-    className="bg-[#c3bef0] w-72 h-10 p-3 rounded-lg mb-2"
-    value={name}
-    onChange={(e)=>setName(e.target.value)}
-     />
-    <input
-     type="text"
-      placeholder="Username" 
-      className="bg-[#c3bef0] w-72 h-10 p-3 rounded-lg mb-2"
-      value={username}
-      onChange={(e)=>setUsername(e.target.value)}
-       />
-    <input type="email"
-     placeholder="Email"
-      className="bg-[#c3bef0] w-72 h-10 p-3 rounded-lg mb-2" 
-      value={email}
-      onChange={(e)=>setEmail(e.target.value)}
+    <form onSubmit={submitHandler} className="flex flex-col items-center gap-6">
+      <h1 className="text-3xl font-semibold text-black">Create Account</h1>
+      <input
+        type="text"
+        name="fullName"
+        placeholder="Name"
+        className="input input-bordered w-72"
+        value={formData.fullName}
+        onChange={handleChange}
       />
-    <input type="password" 
-    placeholder="Password" 
-    className="bg-[#c3bef0] w-72 h-10 p-3 rounded-lg mb-2" 
-    value={password}
-    onChange={(e)=>setPassword(e.target.value)}
-    />
-    <button className="mt-4 h-10 w-24 bg-gradient-to-r from-[#430f58] to-[#6643b5] text-white rounded-lg uppercase font-semibold">
-      Sign Up
-    </button>
-  </form>
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        className="input input-bordered w-72"
+        value={formData.username}
+        onChange={handleChange}
+      />
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        className="input input-bordered w-72"
+        value={formData.email}
+        onChange={handleChange}
+      />
+
+      <div className="relative w-72">
+        <input
+          type={showPassword ? "text" : "password"}
+          name="password"
+          placeholder="Password"
+          className="input input-bordered w-full pr-10"
+          value={formData.password}
+          onChange={handleChange}
+        />
+        <button
+          type="button"
+          className="absolute inset-y-0 right-3 flex items-center"
+          onClick={() => setShowPassword(!showPassword)}>
+          {showPassword ? <LuEyeOff size={20} /> : <LuEye size={20} />}
+        </button>
+      </div>
+
+      <label className="btn flex gap-2 w-72 justify-center">
+        {formData.avatar ? (
+          <LuCheck size={20} className="text-green-500" />
+        ) : (
+          <LuUpload size={20} />
+        )}
+        {formData.avatar ? formData.avatar.name : "Upload Avatar"}
+        <input
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={handleAvatarChange}
+        />
+      </label>
+
+      <button className="btn btn-primary w-24" disabled={isSigningUp}>
+        {isSigningUp ? "Signing Up..." : "Sign Up"}
+      </button>
+    </form>
   );
 };
 

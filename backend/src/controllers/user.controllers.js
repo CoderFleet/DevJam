@@ -27,6 +27,7 @@ const generateAccessRefreshTokens = async (userId) => {
 const register = asyncHandler(async (req, res) => {
   // Get Data from req.body
   const { fullName, username, email, password } = req.body;
+  if(!fullName) console.log("Nahi mila");
 
   if ([fullName, email, username, password].some((field) => !field?.trim())) {
     throw new ApiError(400, "Fill all fields");
@@ -63,12 +64,23 @@ const register = asyncHandler(async (req, res) => {
   });
 
   const userFromDB = await User.findById(user._id).select(
-    "-password -refresh-token"
+    "-password -refreshToken"
   );
+
+  const { accessToken, refreshToken } = await generateAccessRefreshTokens(
+    user._id
+  );
+
+  const cookieOptions = {
+    httpOnly: true,
+    secure: true,
+  };
 
   // Returned Created user and message
   return res
     .status(201)
+    .cookie("accessToken", accessToken, cookieOptions)
+    .cookie("refreshToken", refreshToken, cookieOptions)
     .json(new ApiResponse(200, userFromDB, "User Ban Gaya 🤩!"));
 });
 
@@ -78,7 +90,7 @@ const login = asyncHandler(async (req, res) => {
 
   // Validation
   if (!username && !email) {
-    throw new ApiError(400, "username or password is required");
+    throw new ApiError(400, "username or email is required");
   }
 
   // find user in database
@@ -208,7 +220,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 const getCurrentUser = asyncHandler(async (req, res) => {
   return res
     .status(200)
-    .json(200, req.user, "Current User Fetched successfully");
+    .json(new ApiResponse(200, req.user, "Current User Data"));
 });
 
 export { register, login, logout, refreshAccessToken, getCurrentUser };

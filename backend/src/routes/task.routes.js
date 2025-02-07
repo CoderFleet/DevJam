@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { verifyJWT } from "../middlewares/auth.middleware";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { upload } from "../middlewares/multer.middleware.js";
 import {
   createTask,
   getUserTasks,
@@ -10,7 +11,7 @@ const router = Router();
 
 router.use(verifyJWT);
 
-router.route("/").post(createTask);
+router.route("/").post(upload.none(), createTask);
 
 // Fetch all tasks of current user
 router.route("/getTasks").get(getUserTasks);

@@ -40,4 +40,4 @@ const uploadToCloud = async (localPath) => {
   }
 };
 
-export { uploadToCloud };
+export { uploadToCloud, cloud };

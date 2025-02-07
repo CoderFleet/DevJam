@@ -2,6 +2,7 @@ import { Task } from "../models/task.models.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import mongoose from "mongoose";
 
 const createTask = asyncHandler(async (req, res) => {
   const { title, description, due_date } = req.body;
@@ -9,6 +10,8 @@ const createTask = asyncHandler(async (req, res) => {
   if ([title, due_date].some((field) => field?.trim() === "")) {
     throw new ApiError(400, "Some fields are required fields");
   }
+
+  if (!title || !description) throw new ApiError(400, "Not present");
 
   const task = await Task.create({
     title,
@@ -35,9 +38,9 @@ const getUserTasks = asyncHandler(async (req, res) => {
     createdAt: -1,
   });
 
-  if (!tasks.length) {
-    throw new ApiError(404, "No tasks found for this user...");
-  }
+  // if (!tasks.length) {
+  //   throw new ApiError(404, "No tasks found for this user...");
+  // }
 
   return res.status(200).json(new ApiResponse(200, tasks, "Tasks Fetched"));
 });
@@ -47,7 +50,7 @@ const updateTask = asyncHandler(async (req, res) => {
   const { title, description, due_date } = req.body;
 
   // Validate ObjectId
-  if (!isValidObjectId(taskId)) {
+  if (!mongoose.isValidObjectId(taskId)) {
     throw new ApiError(400, "Invalid Task ID");
   }
 
