@@ -35,6 +35,10 @@ Logged-in users can chat and message peers to discuss doubts and collaborate eff
 📜 Quote of the Day
 A motivational quote of the day displayed on the dashboard as soon as a user logs in.
 
+📆 Interactive Calendar View  
+A built-in **calendar feature** to visualize upcoming deadlines.  
+ Stay organized by tracking  tasks effortlessly. 
+
 🌙 Dark & Light Theme
 Users can switch between dark and light mode for a comfortable viewing experience.
 
