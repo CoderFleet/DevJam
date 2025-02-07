@@ -1,7 +1,11 @@
 // api.js
 import axios from "axios";
 
+<<<<<<< HEAD
 const API_URL = "http://localhost:8000"; // Adjust the URL as per your backend
+=======
+const API_URL = "http://localhost:5000"; // Adjust the URL as per your backend
+>>>>>>> 4e1f51c2bdb9bad8032998506527017ff5dee47a
 
 // Axios instance with JWT token header
 const axiosInstance = axios.create({
