@@ -23,7 +23,6 @@ function App() {
         <Route path='/assignments' element={<AssignmentsManager/>}/>
         <Route path='/chats' element={<Chats/>}/>
         <Route path="/calender" element={<Calender/>}/>;
-
       </Routes>
    
   )

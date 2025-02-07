@@ -8,10 +8,12 @@ import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext.jsx'
 import { TaskProvider } from './context/TaskContext.jsx'
 import { AssignmentProvider } from './context/AssignmentContext.jsx'
+import RegisterProvider from './context/RegisterContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
   <BrowserRouter>
+  <RegisterProvider>
   <AssignmentProvider>
   <TaskProvider>
   <AuthProvider>
@@ -23,6 +25,7 @@ createRoot(document.getElementById('root')).render(
     </AuthProvider>
     </TaskProvider>
     </AssignmentProvider>
+    </RegisterProvider>
   </BrowserRouter>
   </StrictMode>,
 )
