@@ -4,6 +4,7 @@ import {
   HiOutlineChartBar,
   HiOutlineChatAlt,
   HiOutlineLogout,
+  HiUser,
 } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
@@ -29,6 +30,11 @@ const DashboardSidebar = () => {
         <li>
           <Link to="/chats" className="flex items-center gap-2">
             <HiOutlineChatAlt /> Chats
+          </Link>
+        </li>
+        <li>
+          <Link to="/profile" className="flex items-center gap-2">
+            <HiUser /> Profile
           </Link>
         </li>
         <li>

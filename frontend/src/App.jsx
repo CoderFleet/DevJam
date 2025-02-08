@@ -6,9 +6,11 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Chat from "../pages/Chat";
 import Dashboard from "../pages/Dashboard";
-import Assignments from "../pages/Assignments"
+import Assignments from "../pages/Assignments";
+// import Calendar from "../pages/Calendar"
 import { useAuthStore } from "./store/useAuthStore";
 import { Toaster } from "react-hot-toast";
+import Profile from "../pages/Profile";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -54,6 +56,12 @@ const App = () => {
           path="/assignments"
           // eslint-disable-next-line no-constant-condition
           element={authUser ? <Assignments /> : <Navigate to="/" />}
+        />
+        {/* <Route path="/calendar" element={<Calendar />} /> */}
+        <Route
+          path="/profile"
+          // eslint-disable-next-line no-constant-condition
+          element={authUser ? <Profile /> : <Navigate to="/" />}
         />
       </Routes>
 
