@@ -7,7 +7,7 @@ import Signup from "../pages/Signup";
 import Chat from "../pages/Chat";
 import Dashboard from "../pages/Dashboard";
 import Assignments from "../pages/Assignments";
-// import Calendar from "../pages/Calendar"
+import Calendar from "../pages/Calendar";
 import { useAuthStore } from "./store/useAuthStore";
 import { Toaster } from "react-hot-toast";
 import Profile from "../pages/Profile";
@@ -57,10 +57,12 @@ const App = () => {
           // eslint-disable-next-line no-constant-condition
           element={authUser ? <Assignments /> : <Navigate to="/" />}
         />
-        {/* <Route path="/calendar" element={<Calendar />} /> */}
+        <Route
+          path="/heatmap"
+          element={authUser ? <Calendar /> : <Navigate to="/" />}
+        />
         <Route
           path="/profile"
-          // eslint-disable-next-line no-constant-condition
           element={authUser ? <Profile /> : <Navigate to="/" />}
         />
       </Routes>

@@ -41,7 +41,7 @@ taskSchema.post("save", async function (doc, next) {
       user: doc.user,
       reminderDate: doc.due_date,
       taskId: doc._id,
-      message: `Reminder: Complete the task "${doc.title}"`,
+      message: `Task: "${doc.title}"`,
     });
     console.log("Schedule created for Task:", doc.title);
   } catch (error) {

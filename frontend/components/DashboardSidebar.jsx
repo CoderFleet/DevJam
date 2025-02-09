@@ -7,8 +7,10 @@ import {
   HiUser,
 } from "react-icons/hi";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../src/store/useAuthStore";
 
 const DashboardSidebar = () => {
+  const { logout } = useAuthStore();
   return (
     <div className="mt-20 w-64 bg-base-200 h-screen p-4 shadow-lg">
       <ul className="menu space-y-2">
@@ -38,9 +40,9 @@ const DashboardSidebar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/logout" className="flex items-center gap-2">
+          <div onClick={logout} className="flex items-center gap-2">
             <HiOutlineLogout /> Logout
-          </Link>
+          </div>
         </li>
       </ul>
     </div>

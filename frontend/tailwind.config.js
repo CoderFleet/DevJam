@@ -1,17 +1,17 @@
-
-import daisyui from 'daisyui';
-
+import daisyui from "daisyui";
 
 export default {
-  content: [
-    "./src/**/*.{html,js,ts,jsx,tsx}",
-  ],
+  content: ["./src/**/*.{html,js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        quicksand: ["Quicksand", "serif"],
+      },
+    },
   },
   plugins: [daisyui],
   daisyui: {
     themes: true,
-    darkTheme: "night"
-  } 
+    darkTheme: "night",
+  },
 };

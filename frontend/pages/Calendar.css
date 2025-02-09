@@ -1,36 +1,50 @@
 .Calendar {
-    margin: 20px;
-  }
-  
-  .Calendar-header {
-    font-size: 50px;
-    text-align: center;
-    margin: 0 20px 0 20px;
-  }
-  
-  .event-tooltip {
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    max-height: 150px; /* Limit the height of the tooltip */
-    overflow-y: auto;  /* Allows vertical scrolling if content overflows */
-    word-wrap: break-word; /* Ensures text wraps inside the container */
-  }
-  
-  .event-time {
-    font-size: 12px;
-    color: #555;
-  }
-  
-  .event-title {
-    font-weight: bold;
-    margin: 5px 0;
-  }
-  
-  .event-description {
-    font-size: 14px;
-    color: #333;
-  }
-  
+  margin: 20px;
+  margin-left: 260px;
+}
+
+.Calendar-header {
+  font-size: 50px;
+  text-align: center;
+  margin: 0 20px 0 20px;
+}
+
+.event-tooltip {
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-height: 150px;
+  word-wrap: break-word;
+}
+
+.event-time {
+  font-size: 12px;
+  color: #555;
+}
+
+.event-title {
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.event-description {
+  font-size: 14px;
+  color: #333;
+}
+
+.fc-daygrid-event {
+  font-size: 12px;
+  white-space: wrap;
+  /* overflow: hidden; */
+}
+
+.fc-daygrid-dot-event .fc-event-title {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.fc-daygrid-dot-event {
+  padding: 2px 5px;
+}

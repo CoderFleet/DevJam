@@ -40,7 +40,7 @@ assignmentSchema.post("save", async function (doc, next) {
       user: doc.user,
       reminderDate: doc.due_date,
       assignmentId: doc._id,
-      message: `Reminder: Complete the assignment "${doc.title}"`,
+      message: `Assignment: ${doc.title}"`,
     });
     console.log("Schedule created for Assignment:", doc.title);
   } catch (error) {
